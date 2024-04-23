@@ -11,6 +11,15 @@ const SharedConfig = {
     mapOffset: MapWidth >  Width ? MapWidth - Width : 0,
     width: Width,
     height: Height,
+  debug: false,
+  leftTopCorner: {
+    x: 5,
+    y: 5
+  },
+  rightTopCorner: {
+    x: Width,
+    y: 0
+  }
 }
 
 const Scenes = [PreloadScene, PlayScene];
@@ -25,7 +34,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            // debug: true,
         }
     },
     scene: initScenes(),
