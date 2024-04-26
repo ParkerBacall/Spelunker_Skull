@@ -2,7 +2,7 @@ export default anims => {
 
     anims.create({
         key: 'idle',
-        frames: anims.generateFrameNumbers('player', {start: 16, end: 17}),
+        frames: anims.generateFrameNumbers('player', {start: 0, end: 1}),
         frameRate: 2,
         repeat: -1,
     })
@@ -17,7 +17,14 @@ export default anims => {
 
     anims.create({
         key: 'jump',
-        frames: anims.generateFrameNumbers('player', {start: 20, end: 20}),
+        frames: anims.generateFrameNumbers('player', {start: 6, end: 6}),
+        frameRate: 2,
+        repeat: -1,
+    })
+
+    anims.create({
+        key: 'die',
+        frames: anims.generateFrameNumbers('player', {start: 1, end: 1}),
         frameRate: 2,
         repeat: -1,
     })

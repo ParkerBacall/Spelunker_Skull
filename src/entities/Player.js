@@ -1,10 +1,8 @@
 import Phaser from 'phaser';
-import initAnimations from './playerAnims'
-
 import collidable from '../mixins/collidable';
 
 class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y) {
+    constructor(scene, x, y, isDead) {
         super(scene, x, y, 'player');
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -15,17 +13,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.init();
     }
     init() {
-        this.gravity = 500;
+        this.gravity = 600;
         this.playerSpeed = 200;
-
-        this.cursors = this.scene.input = this.scene.input.keyboard.createCursorKeys();
+ 
+        this.cursors = this.scene.input.keyboard.createCursorKeys();
 
         this.body.setGravityY(this.gravity);
         this.setCollideWorldBounds(true);
-        // this.setOrigin(0.5, 1);
         this.initEvents();
-        initAnimations(this.scene.anims);
-
     }
 
     initEvents() {
@@ -33,9 +28,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
+        if (!this.body) { return; }
+
+        if (this.isDead) {
+            this.play('die', true)
+            return
+        }
+
         const { left, right, space, up } = this.cursors;
         const onFloor = this.body.onFloor();
-        if (left.isDown) {
+        if (left.isDown ) {
             this.setFlipX(true);
             this.setVelocityX(-this.playerSpeed);
         } else if (right.isDown) {
@@ -47,7 +49,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         if ((space.isDown || up.isDown) && onFloor) {
-            this.setVelocityY(-this.playerSpeed * 1.5)
+            this.setVelocityY(-this.playerSpeed * 1.75)
+            const jumpSound = this.scene.sound.add('jump');
+                jumpSound.play();
         }
 
         onFloor ?

@@ -16,11 +16,12 @@ class ChargeBar {
             height: 8
         }
 
-        this.pixelPerCharge = this.size.width / this.value;
+        this.pixelPerCharge = this.size.width / this.value / 100;
 
         scene.add.existing(this.bar);
         this.draw(x, y)
     }
+
 
     draw(x, y) {
 
@@ -32,22 +33,32 @@ class ChargeBar {
         this.bar.fillStyle(0xFFFFFF);
         this.bar.fillRect(x, y, width + margin, height + margin);
 
+        this.bar.fillStyle(0x000000);
+        this.bar.fillRect(x, y, 1, 1);
+
+        this.bar.fillStyle(0x000000);
+        this.bar.fillRect(x, y + height + 1, 1, 1);
+
+        this.bar.fillStyle(0x000000);
+        this.bar.fillRect(x + width + 1, y, 1, 1);
+
+        this.bar.fillStyle(0x000000);
+        this.bar.fillRect(x + width + 1, y + height + 1, 1, 1);
+
+
         this.bar.fillStyle(0xEFFF200);
         this.bar.fillRect(x + margin, y + margin, width - margin, height - margin);
 
 
-        const chargeWidth = Math.floor(this.value / this.pixelPerCharge) < 100 ? Math.floor(this.value / this.pixelPerCharge) : 100
+        const chargeWidth = Math.floor(this.value )
+
+        console.log(this.value, chargeWidth)
 
         this.bar.fillStyle(0x4ADEDE);
         this.bar.fillRect(x + margin, y + margin, chargeWidth ? chargeWidth - (margin) : 0, height - margin);
 
         this.bar.fillStyle(0xFFFFFF);
 
-
-        // if (this.value === 0) {
-        //     this.bar.fillStyle(0x000000);
-        //     this.bar.fillRect(x, y, width + margin, height + margin);
-        // }
     }
 }
 
