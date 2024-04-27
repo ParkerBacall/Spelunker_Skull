@@ -120,7 +120,7 @@ class Play extends Phaser.Scene {
                     } else {
                         return
                     }
-                }, 40)
+                }, 50)
 
 
                 this.maxLightFactor += 1;
@@ -131,7 +131,7 @@ class Play extends Phaser.Scene {
                     } else {
                         return
                     }
-                }, 40)
+                }, 60)
                 collectPowerUp.active = false;
                 powerUpSprite.visible = false;
                 this.collectedPowerUps.push(powerUp.id)
